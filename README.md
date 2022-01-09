@@ -21,6 +21,8 @@ This is simple documentation on c++ programming language for me. I create this d
   - [References](#References)
     - [Const References](#Const_References)
     - [Reference as Return](#Reference_as_Return)
+- [Classes](#Classes)
+  - [Object](#Object)
 
 # Basic
 
@@ -493,4 +495,89 @@ x Before Change
 x = 20
 after change
 x = 403
+```
+
+# Classes
+
+In c++ class call core of c++.Class Create Object.Object is instance of class.
+
+**_Basic Class Structure :_**
+
+```
+class <class_name>{
+    private :
+        private_member_variable(s);
+        private_member_function(s)();
+    public :
+        public_member_variable(s);
+        public_member_functions(s)();
+    protected :
+        protected_member_variable(s);
+        protected_meber_function(s)();
+}
+```
+
+**_Program : example class_**
+
+```cpp
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+// create class
+class Person{
+    private :
+    int height;
+    int age;
+
+    public :
+    Person(char _name[],int _age,int _height){
+        strcpy(name,_name);
+        age = _age;
+        height = _height;
+    }
+    char name[30];
+    int get_height(void){
+        return height;
+    }
+    int get_age(void){
+        return age;
+    }
+    void set_age_and_height(int _age,int _height){
+        age = _age;
+        height = _height;
+    }
+
+};
+
+int main(void){
+    Person tazri("Md Tazri",17,5.1);
+
+    cout << ">>> Print Details About Tazri <<<" << endl;
+    cout << "Name   : " << tazri.name << endl;
+    cout << "Age    : " << tazri.get_age() << endl;
+    cout << "Height : " << tazri.get_height() << endl;
+
+    return 0;
+}
+```
+
+**_Output : example class_**
+
+```
+>>> Print Details About Tazri <<<
+Name   : Md Tazri
+Age    : 17
+Height : 5
+```
+
+## Object
+
+Object create by class. It one kind of physical representation.
+
+**_Create Object :_**
+
+```
+Class_Name <object_name>(construction,parameter);
 ```
