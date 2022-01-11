@@ -23,6 +23,9 @@ This is simple documentation on c++ programming language for me. I create this d
     - [Reference as Return](#Reference_as_Return)
 - [Classes](#Classes)
   - [Object](#Object)
+  - [Member Variable](#member_variable)
+  - [Member Function](#member_function)
+  - [Access Specfier](#access_specfier)
 
 # Basic
 
@@ -580,4 +583,264 @@ Object create by class. It one kind of physical representation.
 
 ```
 Class_Name <object_name>(construction,parameter);
+```
+
+## Member_variable
+
+Any kind of data mean object attributes can store in member variable in class. Any kind of built-in datatype variable like array, pointer, structure, enum even class can store as a member variable.
+
+**_Member Variable :_**
+
+```
+class class_name{
+    private :
+        private_member_variable;
+
+    protected :
+        protected_member_variable;
+
+    public :
+        public_member_variable;
+
+}
+```
+
+**_Program : Member Variable _**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// simple class
+class Person{
+    public :
+        int age,roll,height;
+};
+
+int main(void){
+    Person tazri;
+
+    // print tazri object before define variable
+    cout << ">>> Before Define Value <<<" << endl;
+    cout << "Age : " << tazri.age << endl;
+    cout << "Roll : " << tazri.roll << endl;
+    cout << "Height : " << tazri.height << endl;
+
+    tazri.age = 17;
+    tazri.roll = 35;
+    tazri.height = 5.1;
+
+    // print tazri object after define value
+    cout << ">>> After Define Value <<<" << endl;
+    cout << "Age : " << tazri.age << endl;
+    cout << "Roll : " << tazri.roll << endl;
+    cout << "Height : " << tazri.height << endl;
+
+    return 0;
+}
+```
+
+**_Output : member variable_**
+
+```
+>>> Before Define Value <<<
+Age : 32765
+Roll : 0
+Height : 0
+>>> After Define Value <<<
+Age : 17
+Roll : 35
+Height : 5
+```
+
+## Member Function
+
+Member function is behavior of object. Example of Member function.
+
+```
+class class_name{
+    private :
+        private_member_function();
+    protected :
+        protected_member_function();
+    public :
+        public_member_function();
+}
+```
+
+**_We can write defination of member function in two way._**
+
+- inside the class which call inline function.
+- outside the class.
+
+**_Define inline function rule_**
+
+```
+class class_name{
+    public :
+    data_type function_name(perameter_list){
+        defination of the funciton........
+    }
+}
+```
+
+**_Define member function outside the class_**
+
+```
+class class_name{
+    public :
+    return_data_type function_name(perameter_list);
+}
+
+// write defination function outside the class
+return_data_type class_name::member_funciton_name(perameter_list){
+    function defination.....................
+}
+```
+
+**_Program : member function_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create simple class
+class Person{
+    private :
+    int age,roll,height,weight;
+    public :
+    int get_age(void){ // inline function
+        return age;
+    };
+    void set_age(int _age);
+};
+
+// define set_age function outside the class
+void Person::set_age(int _age){
+    age = _age;
+}
+
+int main(void){
+    // create object
+    Person tazri;
+
+    tazri.set_age(17);
+    cout << "Age : " << tazri.get_age() << endl;
+    return 0;
+}
+```
+
+**_Output : member function_**
+
+```
+function
+Age : 17
+```
+
+**_More Important thing about member function_**
+
+- Inline function is little more faster then outside function defination. But it consume the storage.
+
+- Outside defination function is slower then inline function but it save the storage.
+
+- :: it call scope resolution operator.
+- we can call member function inside the another member function in same class without . operator.
+
+## Access_Spacfier
+
+Access spacfier define which variable can use outside the class. Two access apacifier is :
+
+- Public (keyword's public)
+- Private (keyword's private)
+
+### Pubilc
+
+If declear memeber inside the public that can access outside the function.
+
+**_Declear a member inside the public :_**
+
+```cpp
+class name{
+    public : // access spacfier keyword's
+        int member_variable; // memeber variable
+        int memeber_function; // memeber function
+}
+```
+
+**_Program : public_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Person{
+    public :
+        int age,height,weight;
+    public :
+        int account;
+        void show_info(void){
+            cout << ">>> Details <<<" << endl;
+            cout << "> Age : " << age << endl;
+            cout << "> Height : " << height << endl;
+            cout << "> Weight : " << weight << endl;
+        }
+};
+
+int main(void){
+    // create object
+    Person tazri;
+
+    // access the member function
+    tazri.age = 17;
+    tazri.height = 5;
+    tazri.weight = 45;
+    tazri.account = 0;
+
+    // access the public function
+    tazri.show_info();
+    cout << "> Balance : " << tazri.account << endl;
+
+    return 0;
+}
+```
+
+**_Output : public_**
+
+```
+>>> Details <<<
+> Age : 17
+> Height : 5
+> Weight : 45
+> Balance : 0
+```
+
+We can use public keyword mulitiple time inside the class as well.
+
+### private
+
+Private spacfier is define that memeber variable can not use outside the function.
+
+**_Declear private memeber_**
+
+```cpp
+class class_name{
+    int private_memeber;
+    int private_function();
+
+    private :
+        int private_memeber;
+        int private_function();
+}
+```
+
+If you declear function or variable inside the class without any access spacfier keyword then comiplear take this as a private member.
+
+**_Program : private_**
+
+```cpp
+
 ```
