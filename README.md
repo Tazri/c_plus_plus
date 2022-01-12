@@ -22,14 +22,20 @@ This is simple documentation on c++ programming language for me. I create this d
     - [Const References](#Const_References)
     - [Reference as Return](#Reference_as_Return)
 - [Classes](#Classes)
-  - [Object](#Object)
-  - [Member Variable](#member_variable)
-  - [Member Function](#member_function)
-  - [Access Specfier](#access_specfier)
+  - [Object](##Object)
+  - [Member Variable](##member_variable)
+  - [Member Function](##member_function)
+  - [Access Specfier](##access_specfier)
+    - [public](###public)
+    - [private](###private)
+  - [Constructor](##Constructor)
+  - [Destructor](##Destructor)
+  - [Static Member](##Static_Member)
+  - [Static Member Function](##Static_Member_function)
 
 # Basic
 
-See basic program on c.
+Let see basic program on c.
 
 **_Program: print_hello_world :_**
 
@@ -842,5 +848,403 @@ If you declear function or variable inside the class without any access spacfier
 **_Program : private_**
 
 ```cpp
+#include <iostream>
 
+using namespace std;
+
+// create class
+class Person{
+    // creating private memeber without private keyword
+    int age;
+    void print_hello(void);
+
+    // creating private memeber with private keyword
+    private :
+        int height;
+
+    public :
+        void set_age_height(int,int);
+        void print_details(void);
+
+};
+
+// print_hello function
+void Person::print_hello(void){
+    cout << "Hello, World!" << endl;
+}
+
+// set_age_height funciton
+void Person::set_age_height(int _age,int _height){
+    age = _age;
+    height = _height;
+}
+
+// print_details function
+void Person::print_details(void){
+    cout << ">>> Details <<<" << endl;
+    cout << "> Age : " << age << endl;
+    cout << "> Height : " << height << endl;
+    print_hello();
+}
+
+int main(void){
+    // create person
+    Person p_one;
+    p_one.set_age_height(17,5);
+
+    // this line will get error
+    // p_one.print_hello();
+
+    p_one.print_details();
+
+    return 0;
+}
+```
+
+**_Output : private_**
+
+```
+>>> Details <<<
+> Age : 17
+> Height : 5
+Hello, World!
+```
+
+Private member only can use inside the public member function.
+
+## Constructor
+
+Constructor is default class function which added by compiler. It called when object is create.
+
+**_Rule for declear constructor function_**
+
+1. It declear must be inside public. Because it called outside the class.
+1. The constructor function name must be same with class name.
+1. Constructor function can not return anything.
+
+**_Declear constructor function_**
+
+```
+class Class_Name{
+    public :
+        Class_Name(perameter_list){
+            function defination
+            -------------------
+            -------------------
+        }
+};
+```
+
+**_Ohter way to declear constructor function_**
+
+```
+class Class_Name{
+    public :
+        Class_Name(peramter_list); // prototype
+}
+
+Class_Name::Class_Name(peramer_list){
+    function defination
+    -------------------
+    -------------------
+}
+```
+
+**_Program : constructor_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// one way to declear constructor
+// class Pointer{
+//     int x,y;
+//     public :
+//         Pointer(int _x,int _y){
+//             x = _x;
+//             y = _y;
+//         };
+
+//         void print(void){
+//             cout << ">>> Poitner <<<" << endl;
+//             cout << "> x : " << x << endl;
+//             cout << "> y : " << y << endl;
+//         }
+// };
+
+// another way to declear constructor
+class Pointer{
+    int x,y;
+
+    public :
+        Pointer(int,int);
+        void print(void);
+};
+
+// constructor function
+Pointer::Pointer(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+// print function
+void Pointer::print(void){
+    cout << ">>> Pointer Details <<<" << endl;
+    cout << "> x : " << x << endl;
+    cout << "> y : " << y << endl;
+}
+
+// main function
+int main(void){
+    // create pointer
+    Pointer position(45,78);
+    position.print();
+    return 0;
+}
+```
+
+**_Output : constructor_**
+
+```
+>>> Pointer Details <<<
+> x : 45
+> y : 78
+```
+
+## Destructor
+
+Destructor is another default function of class which added by comipler by default. It called when the object is erase in storage.
+
+**_Rule to declear Destructor_**
+
+1. Destructor function name must be same with class name starting with ~ symbol
+1. It's must declear inside the public.
+1. It's can not reaturn anything and it can not get any perameter.
+
+**_Declear Destructor_**
+
+```
+class Class_Name{
+    public :
+        ~Class_Name(){
+            /**
+            * This is destructor function
+            * defination.
+            *
+            */
+        };
+};
+
+// another way to declear destructor
+Class_Name::~Class_Name(){
+    /**
+    * This is destructor function
+    * defination
+    *
+    */
+}
+```
+
+**_Program : Destructor_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// declear destructor
+// class Sample{
+//     public:
+//         Sample(void){
+//             cout << "Object created" << endl;
+//         };
+//         ~Sample(void){
+//             cout << "Object Deleted" << endl;
+//         };
+// };
+
+// another way to declear destructor
+class Sample{
+    public :
+        Sample(void);
+        ~Sample();
+};
+
+// declear constructor
+Sample::Sample(void){
+    cout << "Object was created" << endl;
+};
+
+Sample::~Sample(){
+    cout << "Object was Deleted" << endl;
+}
+
+int main(void){
+
+    {
+        // create object
+        Sample object;
+    }
+
+    return 0;
+}
+```
+
+**_Output : destructor_**
+
+```
+Object was created
+Object was Deleted
+```
+
+## Static_Member
+
+Static member is one kind of variable wich address share by every object. Every object can access it. Static member can be private or public.
+
+**_Creating Static Member_**
+
+```cpp
+class Name{
+    // declear private static member
+    static data_type x,y;
+
+    public :
+        // declear public static member
+        static int p,z;
+};
+
+// define the static memeber
+data_type Name::x;
+data_type Name::y;
+data_type Name::p;
+data_type Name::z;
+
+```
+
+**_Program : Static Member_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Pointer{
+    // create private member
+    int x,y;
+    // create static variable
+    static int total_point;
+
+    // create public member
+    public :
+        Pointer(int _x = 0,int _y = 0);
+        ~Pointer(void);
+        void print_total_point(void);
+        void set_pointer(int,int);
+        void print(void);
+
+};
+
+// define static member
+int Pointer::total_point = 0;
+
+// define constructor
+Pointer::Pointer(int _x,int _y){
+    Pointer::x = _x;
+    Pointer::y = _y;
+    Pointer::total_point++;
+}
+
+// define destructor
+Pointer::~Pointer(){
+    Pointer::total_point--;
+}
+
+void Pointer::print_total_point(void){
+    cout << "Total Point : " << total_point << endl;
+}
+
+void Pointer::set_pointer(int _x,int _y){
+    Pointer::x = _x;
+    Pointer::y = _y;
+}
+
+void Pointer::print(void){
+    cout << ">>> Detail <<<" << endl;
+    cout << "X : " << x << endl;
+    cout << "Y : " << y << endl;
+}
+
+int main(void){
+    // create 5 pointer
+    Pointer p_one,p_two,p_three,p_four,p_five;
+
+    p_one.print_total_point();
+}
+```
+
+**_Output :_**
+
+```
+Total Point : 5
+```
+
+## Static_Member_Function
+
+It look like static member variable. Different is it is function which can access every object of same class. But we can call this function with scope resolution operator. Same thing we do with static variable.
+
+**_Creating static member function_**
+
+```cpp
+class  name{
+    public :
+        static int number;
+        static void print_number(void){
+            --------------------------
+            function defination
+        }
+}
+```
+
+**_Program : static member function_**
+
+```
+#include <iostream>
+
+using namespace std;
+
+// creating class
+class Sample{
+    public :
+        static int number;
+
+        // define static function member
+        static void print_number(void);
+        static void hello(void){
+            cout << "Hello, World!" << endl;
+        }
+};
+
+// define static variable member
+int Sample::number;
+
+// define static function member
+void Sample::print_number(void){
+    cout << "Number : " << number << endl;
+}
+
+
+int main(void){
+    Sample::number = 300;
+    Sample::hello();
+    Sample::print_number();
+}
+```
+
+**_Output : static member function_**
+
+```
+Hello, World!
+Number : 300
 ```
