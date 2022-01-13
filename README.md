@@ -32,6 +32,7 @@ This is simple documentation on c++ programming language for me. I create this d
   - [Destructor](##Destructor)
   - [Static Member](##Static_Member)
   - [Static Member Function](##Static_Member_function)
+  - [Friend](##Friend)
 
 # Basic
 
@@ -1248,3 +1249,5 @@ int main(void){
 Hello, World!
 Number : 300
 ```
+
+## Friend
