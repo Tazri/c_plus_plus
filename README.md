@@ -1406,5 +1406,118 @@ In here Class_B member function can use private member of Class_A. But Class_A c
 **_Program : two-way ticket_**
 
 ```cpp
+#include <iostream>
 
+using namespace std;
+
+// create first forwarding reference
+class Position_a;
+class Position_b;
+
+// create Position_a
+class Position_a{
+    int x,y;
+
+    public :
+        Position_a(int _x = 0,int _y = 0);
+        void show_value(Position_b &);
+        friend Position_b;
+};
+
+Position_a::Position_a(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+// create Position_b
+class Position_b{
+    int x,y;
+
+    public :
+        Position_b(int _x = 0,int _y = 0);
+        void show_value(Position_a &);
+        friend Position_a;
+};
+
+Position_b::Position_b(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+// declear show_value here
+
+void Position_a::show_value(Position_b &  _b){
+    cout << ">>> Details(b) <<<" << endl;
+    cout << "> x : " << _b.x << endl;
+    cout << "> y : " << _b.y << endl;
+}
+
+void Position_b::show_value(Position_a & _a){
+    cout << ">>> Details(a) <<<" << endl;
+    cout << "> x : " << _a.x << endl;
+    cout << "> y : " << _a.y << endl;
+}
+
+int main(void){
+    Position_a point_a(11,22);
+    Position_b point_b(88,99);
+
+    point_a.show_value(point_b);
+    point_b.show_value(point_a);
+
+    return 0;
+}
+```
+
+**_Output : two_way ticket_**
+
+```
+>>> Details(b) <<<
+> x : 88
+> y : 99
+>>> Details(a) <<<
+> x : 11
+> y : 22
+```
+
+### Friend_Function
+
+we can give permision just only one member function to use another class private member.
+
+**_Rule to create member function_**
+
+1. Create forward reference of function which class private member used. Think it A.
+1. Then create class which class member function use. Think it B.
+1. Don't write inline defination of function which use private member of another class.
+1. Then write prototype of function which use private member of another function with friend keyword.
+1. Then write the function defination out of the class.
+
+**_Rule of create member function_**
+
+```cpp
+// forward referencing
+class Class_A;
+
+class Class_B{
+    public :
+        // don't write inline defination
+        void show_value(Class_A);
+};
+
+class Class_A{
+    int private_data;
+
+    public :
+        friend void Class_B::show_value(Class_A);
+};
+
+// now write show_value function
+void Class_B::show_value(Class_A _a){
+    /**
+     * defination of function
+     *
+     * */
+}
+
+// now show is friend function of Class_A
 ```
