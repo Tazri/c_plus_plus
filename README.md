@@ -33,6 +33,9 @@ This is simple documentation on c++ programming language for me. I create this d
   - [Static Member](##Static_Member)
   - [Static Member Function](##Static_Member_function)
   - [Friend](##Friend)
+    - [Friend Member Function](##Friend_Member_Function)
+    - [Stand Alone Function Friend](##Stand_Alone_Function)
+  - [Const Member Function](#Const_Member_Function)
 
 # Basic
 
@@ -1520,4 +1523,222 @@ void Class_B::show_value(Class_A _a){
 }
 
 // now show is friend function of Class_A
+```
+
+**_Program : friend function_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Position_A;
+
+// Class_B Function
+class Temp{
+    public :
+    // don't write inline defination
+    void show_value(Position_A);
+};
+
+
+class Position_A{
+    int x,y;
+    public :
+        Position_A(int _x = 0,int _y = 0);
+        friend void Temp::show_value(Position_A);
+};
+
+// Position constructor
+Position_A::Position_A(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+
+// create show_value function
+void Temp::show_value(Position_A _a){
+    cout << ">>> Position <<<" << endl;
+    cout << "> X : " << _a.x << endl;
+    cout << "> Y :" << _a.y << endl;
+}
+
+int main(void){
+    // create Position
+    Position_A p(33,99);
+    Temp temp;
+
+    // show value
+    temp.show_value(p);
+    return 0;
+}
+```
+
+**_Output : friend function_**
+
+```
+>>> Position <<<
+> X : 33
+> Y :99
+```
+
+### Stand_Alone_Function_Friend
+
+we can use stand alone function as a friend.
+
+**_Rule to create stand alone function as a friend_**
+
+```cpp
+// create forward referencing
+class Position;
+void show_value(Position);
+
+class Position{
+    int x,y;
+    public :
+        Positon(int _x = 0,int _y = 0);
+}
+
+Position::Position(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+void show_value(Position a){
+    // we can access private data of Position Class
+}
+```
+
+**_Program : Stand Alone Function Friend_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// forward referencing
+class Position;
+void show_value(Position);
+
+// create class
+class Position{
+    int x,y;
+    public :
+        Position(int _x = 0,int _y = 0);
+        friend void show_value(Position);
+};
+
+Position::Position(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+// write defination of show_value function
+void show_value(Position _a){
+    cout << ">> Position <<" << endl;
+    cout << "> x : " << _a.x << endl;
+    cout << "> y : " << _a.y << endl;
+}
+
+int main(void){
+    // create function
+    Position p(33,99);
+
+    show_value(p);
+    return 0;
+}
+```
+
+**_Output : stand alone function friend_**
+
+```
+>> Position <<
+> x : 33
+> y : 99
+```
+
+## Const_Member_Function
+
+Const member function is function who can not change private data of class.
+
+**_Create Const member function_**
+
+```cpp
+class class_name{
+    public :
+        // inline defination
+        return_type function(perameter) const{
+            defination;
+        };
+
+        // prototype
+        return_type function(perameter) const;
+}
+
+// out of defination
+return_type class_name::function const{
+    -------------------
+    defination --------
+    -------------------
+    -------------------
+    ------- defination-
+}
+```
+
+**_Program : Const Member Function_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Position{
+    int x,y;
+    public :
+        Position(int _x = 0, int _y = 0);
+
+        // create two const function
+        void show_x(void) const{
+            cout << "> x : " << x << endl;
+        }
+
+        void show_y(void) const;
+
+        void change_x(int _x) const{
+            // can not possible
+            // x = _x;
+        }
+
+};
+
+// create constructor
+Position::Position(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+void Position::show_y(void) const{
+    cout << "> y : " << y << endl;
+}
+
+
+int main(void){
+    // create postion variable
+    Position p(33,99);
+
+    cout << ">>> Position <<<" << endl;
+    p.show_x();
+    p.show_y();
+    return 0;
+}
+```
+
+**_Output : const member function_**
+
+```
+>>> Position <<<
+> x : 33
+> y : 99
 ```
