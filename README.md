@@ -16,26 +16,29 @@ This is simple documentation on c++ programming language for me. I create this d
   - [Function and C++](#Function_and_C++)
     - [Default_Arguments](#Default_Arguments)
     - [Function Perameter Pointer Refercence](#Function_Perameter_Pointer_Refercence)
-  - [Void Pointer](##Void_Pointer)
-  - [Structure Union and Enum](##Structure_Union_and_Enum)
+  - [Void Pointer](#Void_Pointer)
+  - [Structure Union and Enum](#Structure_Union_and_Enum)
   - [References](#References)
     - [Const References](#Const_References)
     - [Reference as Return](#Reference_as_Return)
 - [Classes](#Classes)
-  - [Object](##Object)
-  - [Member Variable](##member_variable)
-  - [Member Function](##member_function)
-  - [Access Specfier](##access_specfier)
-    - [public](###public)
-    - [private](###private)
-  - [Constructor](##Constructor)
-  - [Destructor](##Destructor)
-  - [Static Member](##Static_Member)
-  - [Static Member Function](##Static_Member_function)
-  - [Friend](##Friend)
-    - [Friend Member Function](##Friend_Member_Function)
-    - [Stand Alone Function Friend](##Stand_Alone_Function)
+  - [Object](#Object)
+  - [Member Variable](#member_variable)
+  - [Member Function](#member_function)
+  - [Access Specfier](#access_specfier)
+    - [public](#public)
+    - [private](#private)
+  - [Constructor](#Constructor)
+  - [Destructor](#Destructor)
+  - [Static Member](#Static_Member)
+  - [Static Member Function](#Static_Member_function)
+  - [Friend](#Friend)
+    - [Friend Member Function](#Friend_Member_Function)
+    - [Stand Alone Function Friend](#Stand_Alone_Function)
   - [Const Member Function](#Const_Member_Function)
+- [Object](#Object)
+  - [Copy Object](#Copy_Object)
+  - [Copy Constructor](#Copy_Constructor)
 
 # Basic
 
@@ -1741,4 +1744,319 @@ int main(void){
 >>> Position <<<
 > x : 33
 > y : 99
+```
+
+# Object
+
+In c++ class type variable called object. Let's see the example :
+
+```cpp
+class_name object_name;
+```
+
+### Rule of decleare object;
+
+```cpp
+class_name object_name;
+
+// perameterized object case
+class_name object_name(argument_list);
+```
+
+### Accessing member variable
+
+```cpp
+object_name.member_variable;
+
+// change member variable
+object_name.member_variable = value;
+
+// calling member function
+object_name.member_function();
+```
+
+## Copy_Object
+
+Here we can copy object by just = operator. Syntax :
+
+```cpp
+object_one = oject_two;
+```
+
+**_Program : copy object_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Position{
+    int x,y,id;
+
+    public :
+        static int total;
+        Position(int _x = 0,int _y = 0);
+        ~Position(void);
+        void change_position(int _x = 0,int _y = 0);
+        void show_position(void);
+
+};
+
+int Position::total = 0;
+
+// constructor
+Position::Position(int _x,int _y){
+    x = _x;
+    y = _y;
+    id = total++;
+}
+
+// destructor
+Position::~Position(void){
+    total--;
+}
+
+// Position::show_position
+void Position::show_position(void){
+    cout << ">>> Position Detailts " << id << " <<<" <<endl;
+    cout << "> x : " << x << endl;
+    cout << "> y : " << y << endl;
+    cout << ">>> Finish Details <<<\n\n" << endl;
+}
+
+// Position::change_position
+void Position::change_position(int _x,int _y){
+    x = _x;
+    y = _y;
+}
+
+int main(void){
+    Position me(33,55);
+    Position other;
+    other = me;
+
+    cout << ">>> Before Changing Value <<<" << endl;
+    me.show_position();
+    other.show_position();
+
+    cout << ">>> After Changing Value <<<" << endl;
+    me.change_position(1,1);
+    me.show_position();
+    other.show_position();
+
+    return 0;
+}
+```
+
+**_Output : copy object_**
+
+```
+>>> Before Changing Value <<<
+>>> Position Detailts 0 <<<
+> x : 33
+> y : 55
+>>> Finish Details <<<
+
+
+>>> Position Detailts 0 <<<
+> x : 33
+> y : 55
+>>> Finish Details <<<
+
+
+>>> After Changing Value <<<
+>>> Position Detailts 0 <<<
+> x : 1
+> y : 1
+>>> Finish Details <<<
+
+
+>>> Position Detailts 0 <<<
+> x : 33
+> y : 55
+>>> Finish Details <<<
+
+```
+
+In here we see that after copy the object the value are different from each other. Here what happen after copy the object from other to another :
+
+1. Two object must be in same class
+1. If Both object class type is different in that case it can not copy
+1. Compiler copy them by bitwise. So there is not releation each other after copy.
+1. But object exist pointer variable in that case create a releation.
+
+So see the example if object have pointer member and copy that.
+
+**_Program : copy pointer member_**
+
+```cpp
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+// create class
+class Person{
+    char *name;
+    int age;
+
+    public :
+        static int total_person;
+        Person(char *_name,int age);
+        ~Person(void);
+        void show_person(void);
+        void change_name(char *_name);
+};
+
+int Person::total_person = 0;
+
+// constructor
+Person::Person(char *_name,int _age){
+    name = new char[40];
+    strcpy(name,_name);
+    age = _age;
+    total_person++;
+}
+
+// destructor
+Person::~Person(void){
+    total_person--;
+}
+
+// show_person
+void Person::show_person(void){
+    cout << "Person : " << total_person << endl;
+    cout << "name : " << name << endl;
+    cout << "age : " << age << endl;
+    cout << "\n";
+}
+
+// change_name
+void Person::change_name(char *_name){
+    strcpy(name,_name);
+}
+
+int main(void){
+    Person me("Md Tazri",17);
+    Person other("Focasa",20);
+
+    cout << ">>> Before copy and changing <<<" << endl;
+    me.show_person();
+    other.show_person();
+
+    cout << "\n>>> After copy and changing <<<" << endl;
+    other = me;
+    me.change_name("Troy");
+    me.show_person();
+    other.show_person();
+    return 0;
+}
+```
+
+**_Output : copy pointer member_**
+
+```
+>>> Before copy and changing <<<
+Person : 2
+name : Md Tazri
+age : 17
+
+Person : 2
+name : Focasa
+age : 20
+
+
+>>> After copy and changing <<<
+Person : 2
+name : Troy
+age : 17
+
+Person : 2
+name : Troy
+age : 17
+
+```
+
+## Copy_Constructor
+
+In that case we can use copy constructor. copy constructor is another constructor default class function which call when copy the object. Here syntax of copy constructor :
+
+```cpp
+Class_Name(Class_Name &);
+
+// defination of copy constructor
+Class_Nmae::Class_Name(class_name& object_name){
+    // defination here
+}
+```
+
+**_Program : copy constructor_**
+
+```cpp
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+// create human class
+class Human{
+    public :
+        // member
+        char *name;
+
+
+        // member function
+        Human(char *_name);
+        Human(Human &_dist);
+        void show(void){
+            cout << "Name : " << name << endl;
+        }
+
+};
+
+// constructor
+Human::Human(char *_name){
+    name = new char[40];
+    strcpy(name,_name);
+}
+
+// copy constructor
+Human::Human(Human &_dist){
+    strcpy(name,_dist.name);
+}
+
+int main(void){
+    // create human
+    Human me("Tazri");
+    Human other = me;
+
+    cout << ">>> Before changing " << endl;
+    me.show();
+    other.show();
+
+    cout << ">>> After changing " << endl;
+    strcpy(me.name,"Solus");
+    me.show();
+    other.show();
+
+    cout << ">>> After again changing " << endl;
+    strcpy(other.name,"Troy");
+    me.show();
+    other.show();
+}
+```
+
+**_Output : copy constructor_**
+
+```
+>>> Before changing
+Name : Tazri
+Name : Tazri
+>>> After changing
+Name : Solus
+Name : Tazri
+>>> After again changing
+Name : Solus
+Name : Troy
 ```
