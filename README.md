@@ -39,6 +39,7 @@ This is simple documentation on c++ programming language for me. I create this d
 - [Object](#Object)
   - [Copy Object](#Copy_Object)
   - [Copy Constructor](#Copy_Constructor)
+  - [Object and Function](#Object_and_Function)
 
 # Basic
 
@@ -2059,4 +2060,309 @@ Name : Tazri
 >>> After again changing
 Name : Solus
 Name : Troy
+```
+
+## Object_and_Function
+
+Object can use every where example like :
+
+1. function inside.
+2. function arguments.
+3. function return.
+
+### Function inside
+
+If we create object inside the function and close the function then the destructor will called. In that case it call last object destructor first then secound last then go on. Example like :
+
+**_Program : object inside the function_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create simple class
+class Block{
+    char grade;
+
+    public :
+        Block(char _grade);
+        ~Block(void);
+        void show(void);
+
+};
+
+Block::Block(char _grade){
+    grade = _grade;
+}
+
+Block::~Block(void){
+    cout << "Block " << grade << " Deleted" << endl;
+}
+
+
+void Block::show(void){
+    cout << "This is block " << grade << endl;
+}
+
+
+// create sample function which call Block object
+void call_block(void){
+    Block a('a'),b('b'),c('c');
+
+    a.show();
+    b.show();
+    c.show();
+
+    cout << ">>> Finish Function Here <<<" << endl;
+}
+
+int main(void){
+    call_block();
+    return 0;
+}
+```
+
+**_Output : object inside the function_**
+
+```
+This is block a
+This is block b
+This is block c
+>>> Finish Function Here <<<
+Block c Deleted
+Block b Deleted
+Block a Deleted
+```
+
+### function arguments
+
+We can pass object as function arguments but here focus that if we pass object in arguments it call call by value. In that case pass the copy of object. In that case if we change something in inside function object then it can not change main function object but if class has pointer member in that case pointer member value is must change if we change value function inside value. One more thing, if we pass object as function arguments in that case can not call object constructor but end of function must called object destructor. See again point by point :
+
+1. pass object in argument : pass copy of object call call by value.
+1. pointer member value change if inside the function object then main function object pointer member value will change.
+1. call by value object case can not call constructor.
+1. call by value object case will call destructor end of function.
+
+**_Program : call by value object_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Position{
+    char mark;
+    int x;
+    int *y;
+
+    public :
+        Position(char _mark,int _x = 0,int _y = 0);
+        ~Position();
+        void show(void);
+        void change(int _x,int _y);
+};
+
+Position::Position(char _mark,int _x,int _y){
+    int d = _y;
+    mark = _mark;
+    x = _x;
+    y =&d;
+}
+
+Position::~Position(){
+    cout << "Deleted " << mark << endl;
+}
+
+void Position::show(void){
+    cout << ">>> Point <<<" << endl;
+    cout << "> x : " << x << endl;
+    cout << "> *y : " << *y << endl;
+    cout << "> mark : " << mark << endl;
+    cout << ">>> Finish <<<" << endl;
+}
+
+void Position::change(int _x,int _y){
+    x = _x;
+    *y = _y;
+}
+
+// create simple function
+void show_function(Position a){
+    cout << "IN show function : " << endl;
+    cout << "change y value to 1000 and x value 9000" << endl;
+    a.change(9000,1000);
+    a.show();
+    cout << "finish function here." << endl;
+}
+
+int main(void){
+    cout << "In Main Function : " << endl;
+    // create position
+    Position point('a',99,11);
+    point.show();
+
+    cout << "Pass the point in function : " << endl;
+    show_function(point);
+
+    cout << "point after finish function : " << endl;
+    point.show();
+}
+```
+
+**_Output : call by value object_**
+
+```
+In Main Function :
+>>> Point <<<
+> x : 99
+> *y : 11
+> mark : a
+>>> Finish <<<
+Pass the point in function :
+IN show function :
+change y value to 1000 and x value 9000
+>>> Point <<<
+> x : 9000
+> *y : 1000
+> mark : a
+>>> Finish <<<
+finish function here.
+Deleted a
+point after finish function :
+>>> Point <<<
+> x : 99
+> *y : 32765
+> mark : a
+>>> Finish <<<
+Deleted a
+```
+
+## Call by Reference
+
+we can pass the object address in function perameter. In that case it can not call destructor function end of the function.
+
+Accessing object pointer :
+
+```cpp
+object_name->member_name
+```
+
+**_Program : call by reference object_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// class
+class Point{
+    public :
+        int x,y;
+        char mark;
+        // member function
+        Point(char _mark,int _x = 0,int _y = 0);
+        ~Point(void);
+        void show(void);
+};
+
+Point::Point(char _mark,int _x, int _y){
+    mark = _mark;
+    x = _x;
+    y = _y;
+}
+
+Point::~Point(void){
+    cout << "Deleted Point " << mark << endl;
+}
+
+void Point::show(void){
+    cout << ">>> Point " << mark << " <<<" << endl;
+    cout << "> X " << x << endl;
+    cout << "> Y " << y << endl << endl;
+}
+
+// sample function
+void sample(Point *p){
+    cout << "In Sampe function : ";
+    p->show();
+    p->x = 11;
+    p->y = 22;
+    cout << "change x to 11 and y to 22";
+}
+
+int main(void){
+    Point point('a',7,8);
+    sample(&point);
+    point.show();
+}
+```
+
+**_Output : call by reference object_**
+
+```
+In Sampe function : >>> Point a <<<
+> X 7
+> Y 8
+
+change x to 11 and y to 22>>> Point a <<<
+> X 11
+> Y 22
+
+Deleted Point a
+```
+
+### Return Object
+
+**_Program : return object_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create point simple class
+class Point{
+    public :
+        char mark;
+        int x,y;
+
+        // member function here
+        Point(char _mark,int _x = 0, int _y = 0){
+            mark = _mark;
+            x = _x;
+            y = _y;
+        }
+        ~Point(void){
+            cout << "deleted : " << mark << endl;
+        }
+        void show(void){
+            cout << "Point " << mark << endl;
+            cout << "X : " << x << endl;
+            cout << "Y : " << y << endl;
+        }
+};
+
+// create_point
+Point create_point(char _mark){
+    // create point which is return
+    Point d(_mark,22,11);
+    return d;
+}
+
+int main(void){
+    Point me = create_point('a');
+    me.show();
+    return 0;
+}
+```
+
+**_Output : return object_**
+
+```
+Point a
+X : 22
+Y : 11
+deleted : a
 ```
