@@ -40,6 +40,8 @@ This is simple documentation on c++ programming language for me. I create this d
   - [Copy Object](#Copy_Object)
   - [Copy Constructor](#Copy_Constructor)
   - [Object and Function](#Object_and_Function)
+  - [Object Array](#Object_Array)
+  - [this_keyword](#this_keyword)
 
 # Basic
 
@@ -2365,4 +2367,152 @@ Point a
 X : 22
 Y : 11
 deleted : a
+```
+
+## Object_Array
+
+we can create object array esaily. Here example :
+
+**_Program : object of array_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// class Point
+class Point{
+    char mark;
+    int  x,y;
+
+    public :
+        Point(char _mark,int _x = 0,int _y = 0);
+        ~Point(void);
+        void show(void){
+            cout << "Point(" << mark << ")";
+            cout << " (" << x << ", " << y <<")" << endl;
+        }
+};
+
+Point::Point(char _mark,int _x,int _y){
+    mark = _mark;
+    x = _x;
+    y = _y;
+}
+
+
+Point::~Point(void){
+    cout << "Deleted " << mark << endl;
+}
+
+// show point array
+void show_point_array(Point point_arr[],int _len){
+    for(int i = 0; i < _len;i++){
+        point_arr[i].show();
+    }
+}
+
+int main(void){
+    // create point of array
+    Point points[3] = {Point('a',2,3),Point('b',4,5),Point('c',6,2)};
+
+    // shorcat if need one peramter in class
+    Point null_points[3] = {'x','y','z'};
+
+    cout << "point" << endl;
+    show_point_array(points,3);
+
+    cout << "\nnull point" << endl;
+    show_point_array(null_points,3);
+    return 0;
+}
+```
+
+**_Output : object of array_**
+
+```
+point
+Point(a) (2, 3)
+Point(b) (4, 5)
+Point(c) (6, 2)
+
+null point
+Point(x) (0, 0)
+Point(y) (0, 0)
+Point(z) (0, 0)
+Deleted z
+Deleted y
+Deleted x
+Deleted c
+Deleted b
+Deleted a
+```
+
+# this_keyword
+
+when create thie class the comipilter add this keyword as a class point in last perameter of none static member function and constructor.
+
+Think about this example :
+
+```cpp
+class Point{
+    int x,y;
+    public :
+        Point(int _x,int _y);
+        void show(void);
+};
+```
+
+compiler compile it like this :
+
+```cpp
+class Point{
+    int x,y;
+    public :
+        Point(int _x,int _y,Point *this);
+        void show(Point *);
+}
+```
+
+Here full example :
+**_Program : this_**
+
+```cpp
+# include <iostream>
+
+using namespace std;
+
+// create class
+class Point{
+    public :
+        int x,y;
+        Point(int _x = 0,int _y = 0){
+            this->x = _x;
+            this->y = _y;
+        }
+        void show_address(void){
+            cout << "address &this->x " << &(this->x) << endl;
+            cout << "address this " << this << endl;
+        }
+};
+
+
+
+int main(void){
+    Point x;
+
+    x.show_address();
+    cout << "address &x.x : " << &x.x << endl;
+    cout << "address &x : " << &x << endl;
+    return 0;
+}
+```
+
+**_Output : this_**
+
+```
+address &this->x 0x7ffc39ca59a0
+address this 0x7ffc39ca59a0
+address &x.x : 0x7ffc39ca59a0
+address &x : 0x7ffc39ca59a0
 ```
