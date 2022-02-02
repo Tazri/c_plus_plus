@@ -42,6 +42,7 @@ This is simple documentation on c++ programming language for me. I create this d
   - [Object and Function](#Object_and_Function)
   - [Object Array](#Object_Array)
   - [this_keyword](#this_keyword)
+- [Dynamic Memory](#Dynamic_Memory)
 
 # Basic
 
@@ -2515,4 +2516,117 @@ address &this->x 0x7ffc39ca59a0
 address this 0x7ffc39ca59a0
 address &x.x : 0x7ffc39ca59a0
 address &x : 0x7ffc39ca59a0
+```
+
+# Dynamic_Memory
+
+We can set memory from heap in c++. It called dynamic memory allocation. In that case we use new and delete key. Here both keyword syntax :
+
+```cpp
+// new variable memory allocation
+datatype * variable_name = new datatype;
+
+// new array memory allocation
+datatype * variable_name = new datatype;
+
+// delete variable memory dellocation
+delete variable_name;
+
+// delete array memory dellocation
+delete [] variable_name;
+```
+
+**_Program : dynamic memory_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create Point class
+class Point{
+    int x,y;
+    public :
+     Point(int _x = 0,int _y = 0) {
+         this->x = _x;
+         this->y = _y;
+     }
+     void show(void){
+         cout << "Point(" << x << " ," << y << " )" << endl;
+     }
+};
+
+int main(void){
+    Point * me = new Point(22,33);
+    Point *points = new Point[3];
+
+    // *points = Point(11,11);
+    // *(points + 1) = Point(22,22);
+    // *(points + 2) = Point(33,33);
+
+    // we can do by array notation like this
+    points[0] = Point(11,11);
+    points[1] = Point(22,22);
+    points[2] = Point(44,44);
+
+    me->show();
+    for(int i = 0;i < 3;i++){
+        points[i].show(); // both working fine
+        (points+i)->show(); // it working fine
+    }
+
+    delete me;
+    delete [] points;
+    return 0;
+}
+```
+
+**_Output : dynamic memory_**
+
+```
+Point(22 ,33 )
+Point(11 ,11 )
+Point(11 ,11 )
+Point(22 ,22 )
+Point(22 ,22 )
+Point(44 ,44 )
+Point(44 ,44 )
+```
+
+If it's fail to allocate then it must be throw error in leatest verson of c++ compiler but older version it must be return null pointer. In c++ has **_\_new_handler_** function pointer which is point a null. We can set function for **_\_new_handler_** by using **_set_new_handler_**. This function will called when failed to allocate new meomory in heap. Now see the example :
+
+**_Program : \_new_handler_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// funciton for new handler
+void _momory_error(void){
+    cout << "Failed to allocate memory.!!" << endl;
+    exit(1);
+}
+
+int main(void){
+    set_new_handler(_momory_error);
+
+    // try to huge amount of size memory allocation
+    int *ptr = new int[5000000000];
+
+    *ptr = 50;
+    cout << "first element is " << *ptr << endl;
+    delete [] ptr;
+
+    // unset _new_handler
+    set_new_handler(0);
+
+    return 0;
+}
+```
+
+**_Output : \_new_handler_**
+
+```
+Failed to allocate memory.!!
 ```
