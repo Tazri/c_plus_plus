@@ -44,6 +44,13 @@ This is simple documentation on c++ programming language for me. I create this d
   - [this_keyword](#this_keyword)
 - [Dynamic Memory](#Dynamic_Memory)
 - [Inheritance](#Inheritance)
+- [Polymorphism](#Polymorphism)
+  - [function overloading](#function_overloading)
+  - [overload_constructor_and_member](#overload_constructor_and_member)
+  - [operator overloading](#operator_overloading)
+  - [operator function as friend](#operator_function_as_friend)
+  - [overload insertion operator](#overload_insertion_operator)
+  - [overload bracket operator](#overload_braket_operator)
 
 # Basic
 
@@ -3407,4 +3414,607 @@ int main(void){
 
 ```
 Point(11,22)
+```
+
+# Polymorphism
+
+Poly means many and mormph mean form. That mean's some thing like which can capavel to can take so many form.
+
+## function_overloading
+
+We can create mulitple function with same name in c++ but in that case some thing must be care. Here this thing :
+
+1. perameter type and number must be different
+1. not only return type different must be peramter type different.
+
+**_Program : function overloading_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create function with same name
+void add(void){
+
+    cout << "add(void) " << "4 + 5 = 9" << endl;
+}
+
+int add(int a,int b){
+    return a+b;
+}
+
+double add(double a,double b){
+    return a+b;
+}
+
+int main(void){
+    add();
+    cout << "add(3,2) : " << add(3,2) << endl;
+    cout <<"add(3.2,3.4) : " << add(3.2,3.4) << endl;
+}
+```
+
+**_Output : function overloading_**
+
+```
+add(void) 4 + 5 = 9
+add(3,2) : 5
+add(3.2,3.4) : 6.6
+```
+
+## overload_constructor_and_member
+
+We can create overload constructor. Just focus that constructor peramter type and number is must be different each other.Not only overload constructor but also member. Here example :
+
+**_Program : overload constructor and member_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create string class
+class String{
+    bool is_fill = false;
+    char *s;
+    int len = 0;
+
+    public :
+        // constructor overloading
+        String(char *_s);
+        String(int _len);
+
+        // create member function
+        int get_len(void){return len;}
+        void show_string(void);
+        // overload member function
+        void set(char *_s);
+        void set(int _len);
+
+        // destructor
+        ~String(void);
+};
+
+String::String(char *_s){
+    int _len = 0,i = 0;
+
+    while(*(_s + _len)){
+        _len++;
+    }
+
+    s = new char[_len+1];
+
+    for(i = 0;i < _len;i++){
+        *(s + i) = *_s++;
+    }
+    *(s+_len) = '\0';
+    len = _len;
+    is_fill = true;
+}
+
+String::String(int _len){
+    s = new char[_len+1];
+    len = _len;
+}
+
+// set string
+void String::set(char *_s){
+    len = 0;
+    while(*(_s + len)){
+        len++;
+    }
+
+    // create new string -> ns
+    char *ns = new char[len + 1];
+
+    for(int i = 0; i < len;i++){
+        *(ns+i) = *(_s+i);
+    }
+    *(ns+len) = '\0';
+    delete [] s;
+    s = ns;
+    is_fill = true;
+}
+
+// set string
+void String::set(int _len){
+    if(!is_fill){
+        len = _len;
+    }else{
+        // create new string -> ns
+        char *ns = new char[_len+1];
+
+        int l = len < _len ? len : _len;
+        int i;
+        for(i = 0;i < l;i++){
+            *(ns+i) = *(s+i);
+        }
+
+        ns[i] = '\0';
+        delete [] s;
+        s = ns;
+    }
+}
+
+// show string
+void String::show_string(void){
+    if(!is_fill){
+        cout << "NULL";
+    }else{
+        cout << s;
+    }
+}
+
+// detructor
+String::~String(void){
+    delete [] s;
+}
+
+int main(void){
+    String me("MD Tazri"),you(5);
+
+
+    cout << "me.get_len() : " << me.get_len() << endl;
+    cout << "me.show_string() : ";
+    me.show_string();
+    cout << endl;
+
+    cout << "you.show_string() : ";
+    you.show_string();
+    cout << endl;
+    cout << "you.get_len() : " << you.get_len() << endl;
+    you.set(32);
+    cout << "you.set(32) then len : " << you.get_len() << endl;
+
+    me.set("Focasa");
+    cout << "after set me : " << endl;
+    cout << "me.get_len() : " << me.get_len() << endl;
+    cout << "me.show_string() : ";
+    me.show_string();
+    cout << endl;
+    return 0;
+}
+```
+
+**_Output : overload constructor and member_**
+
+```
+me.get_len() : 8
+me.show_string() : MD Tazri
+you.show_string() : NULL
+you.get_len() : 5
+you.set(32) then len : 32
+after set me :
+me.get_len() : 6
+me.show_string() : Focasa
+```
+
+## operator_overloading
+
+We can change operator work as well. It call operator overloading.Here syntax to overloading operator :
+
+```cpp
+// declear syntax
+return_type operator overloadable_operator(perameter_list)
+
+// define syntax
+return_type class_name::operator overloadable_operator(perameter_list)
+
+// this type of function also called operator function
+```
+
+Take care this subject when overloading the operator :
+
+1. oerloaded operator only can work class which is it is declear.
+1. we can not use default perameter in operator function
+1. we can overloaded operator function.
+1. When overloaded the unari operator in that case it not necessary to declear perameter. comipler pass the **_this_** arguments by default.
+
+**_Program : operator overloading_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create react class
+class React{
+    int height;
+    int width;
+
+    public :
+        // constructor overloading
+        React(void);
+        React(int _height,int _width);
+
+        // member function
+        void show(void);
+
+        // operator overloading
+        React operator + (int _number);
+        React operator + (React);
+        React operator - (int _number);
+        React operator - (React);
+        React operator++();
+        React operator--();
+};
+
+// constructor
+React::React(void){
+    height = 0;
+    width = 0;
+}
+
+React::React(int _height,int _width){
+    height = _height;
+    width = _width;
+}
+
+// member function
+void React::show(void){
+    cout << "React(" << width << "x" << height << ")" << endl;
+}
+
+// operator overloading
+React React::operator +(int _number){
+    React temp;
+    temp.width = React::width + _number;
+    temp.height = React::height + _number;
+    return temp;
+}
+
+React React::operator -(int _number){
+    React temp;
+    temp.width = React::width - _number;
+    temp.height = React::height - _number;
+    return temp;
+}
+
+React React::operator +(React _react){
+    React temp;
+    temp.width = React::width + _react.width;
+    temp.height = React::height + _react.height;
+    return temp;
+}
+
+React React::operator -(React _react){
+    React temp;
+    temp.width = React::width - _react.width;
+    temp.height = React::height - _react.height;
+    return temp;
+}
+
+React React::operator++(){
+    React temp;
+    temp.width = ++React::width;
+    temp.height = ++React::height;
+    return temp;
+}
+
+React React::operator--(){
+    React temp;
+    temp.width = --React::width;
+    temp.height = --React::height;
+    return temp;
+}
+
+int main(void){
+    React react(23,20);
+
+    cout << "react.show()" << endl;
+    react.show();
+
+    ++react;
+    cout << "\nafter ++react : " << endl;
+    react.show();
+
+    --react;
+    cout << "\nafter --react :" << endl;
+    react.show();
+
+    React react_add_10 = react + 10;
+    cout << "\nreact_add_10 :" << endl;
+    react_add_10.show();
+
+    React react_minus_react = react - react;
+    cout << "\nreact_minus_react : " << endl;
+    react_minus_react.show();
+    return 0;
+}
+```
+
+**_Outpu : operator overloading_**
+
+```
+react.show()
+React(20x23)
+
+after ++react :
+React(21x24)
+
+after --react :
+React(20x23)
+
+react_add_10 :
+React(30x33)
+
+react_minus_react :
+React(0x0)
+```
+
+## operator_function_as_friend
+
+We can declear and define opeartor function as friend. Syntax here :
+
+```cpp
+// declear as friend
+friend return_type operator overlaodable_operator(left,right);
+
+// define function
+return_type operator overloadable_operator(left,right){
+    // function here
+}
+
+/**
+ * binary operator -> perameter(left,right)
+ * unary operator -> peramater(one);
+ *
+ * */
+
+```
+
+**_Program : operator function as friend_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class React{
+    int height,width;
+
+    public :
+        React(int _height = 0,int _width = 0);
+        void show(void);
+
+        // friend function
+        friend React operator+(React,int);
+        friend React operator+(React,React);
+        friend React operator++(React &);
+};
+
+React::React(int _height,int _width){
+    height = _height;
+    width = _width;
+}
+
+void React::show(void){
+    cout << "react(" << width << "x" << height << ")" << endl;
+}
+
+// create operator function
+React operator + (React left,int right){
+    React temp;
+    temp.height = left.height + right;
+    temp.width = left.width + right;
+    return temp;
+}
+
+React operator + (React left,React right){
+    React temp;
+    temp.height = left.height + right.height;
+    temp.width = left.width + right.width;
+    return temp;
+}
+
+React operator++(React& _react){
+    ++_react.height;
+    ++_react.width;
+    return _react;
+}
+
+int main(void){
+    React object = React(10,20);
+    cout << "object.show() : " << endl;
+    object.show();
+
+    ++object;
+    cout << "\nAfter ++object : " << endl;
+    object.show();
+
+    React object_plus_object = object + object;
+
+    cout << "\nobject_plus_object.show() : " << endl;
+    object_plus_object.show();
+    return 0;
+}
+```
+
+**_Output : operator function as friend_**
+
+```
+object.show() :
+react(20x10)
+
+After ++object :
+react(21x11)
+
+object_plus_object.show() :
+react(42x22)
+```
+
+## overload_insertion_operator
+
+Here overlaod insertion operator **_<<_**.
+
+**_Program : overload insertion operator_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class React{
+    int height,width;
+
+    public :
+        React(int _height = 0,int _width = 0){
+            height = _height;
+            width = _width;
+        }
+
+        friend void operator<<(ostream &os,React _r);
+};
+
+// create friend operator function
+void operator<<(ostream &os,React _r){
+    os << "Raect :" << _r.width << " X " << _r.height << endl;
+}
+
+int main(void){
+    React box(30,40);
+    cout << box;
+    return 0;
+}
+```
+
+**_Output : overload insertion operator_**
+
+```
+Raect :40 X 30
+```
+
+## overload_bracket_operator
+
+We can overload bracket operator. This operator is (),[] and -> . But can not declear as friend and static member function of class.
+
+**_Program : overload bracket operator_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create String class
+class String{
+    int len = 0;
+    char *string = NULL;
+
+    public :
+        // construtor
+        String(int len = 0);
+        String(char _string[]);
+
+        // member funciton
+        void set_string(char _string[]);
+
+        // destructor
+        ~String(void){
+            if(string != NULL){
+                delete [] string;
+            }
+        }
+
+        // operator overload
+        void operator=(char _strint[]);
+        char operator[](int _index);
+
+        // friends
+        friend void operator<<(ostream &,String &);
+};
+
+// constructor
+String::String(int _len){
+    len =_len;
+}
+
+String::String(char _string[]){
+    String::set_string(_string);
+}
+
+// set string
+void String::set_string(char _string[]){
+    // measure the len -> l
+    int l = 0;
+    while(_string[l]){
+        l++;
+    }
+
+    // memory allocate for the string
+    char *new_string = new char[l+1];
+    delete [] string;
+    string = new_string;
+    len = l;
+
+    // copy the string
+    for(int i = 0;i < len;i++){
+        *(string + i) = _string[i];
+    }
+
+    *(string + len) = '\0';
+}
+
+// operator overload
+void String::operator=(char _string[]){
+    set_string(_string);
+}
+
+char String::operator[](int _index){
+    if(_index < len){
+        return *(string+_index);
+    }else{
+        return '\0';
+    }
+}
+
+// friend of string class
+void operator<<(ostream &os,String &_string){
+    if(_string.len){
+        os << _string.string << endl;
+    }else{
+        os << "Empty" << endl;
+    }
+}
+
+int main(void){
+    String name = "Md Tazri";
+    cout << name;
+
+    name = "Troy Farha Tazri Di Focasa";
+    cout << name;
+
+    cout << name[3] << name[8] << endl;
+    return 0;
+}
+```
+
+**_Output : overload bracket operator_**
+
+```
+Md Tazri
+Troy Farha Tazri Di Focasa
+yh
 ```
