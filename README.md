@@ -51,6 +51,8 @@ This is simple documentation on c++ programming language for me. I create this d
   - [operator function as friend](#operator_function_as_friend)
   - [overload insertion operator](#overload_insertion_operator)
   - [overload bracket operator](#overload_braket_operator)
+- [Virtual Function](#Virtual_Function)
+  - [Override](#Override)
 
 # Basic
 
@@ -4017,4 +4019,54 @@ int main(void){
 Md Tazri
 Troy Farha Tazri Di Focasa
 yh
+```
+
+# Virtual_Function
+
+Understand the virtual function before understand the override. Override mean a member function override the derived function from base.
+
+## Override
+
+If base pointer store derived pointer and both class has same member function then base member function will override the derived member function. It call override. Here example :
+
+**_Program : base_pointer_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Base{
+    public :
+        void message(void){
+            cout << "This is message from base" << endl;
+        }
+};
+
+class Derived:public Base{
+    public :
+        void message(void){
+            cout << "This is messgae from derived" << endl;
+        }
+};
+
+int main(void){
+    Base *base_pointer;
+    Derived derived_object;
+    base_pointer = &derived_object;
+
+    cout << "base_pointer store derived object now " << endl;
+    cout << "see which member function base pointer called : " << endl;
+    base_pointer->message();
+    return 0;
+}
+```
+
+**\*Output : base pointer**
+
+```
+base_pointer store derived object now
+see which member function base pointer called :
+This is message from base
 ```
