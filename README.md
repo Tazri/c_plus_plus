@@ -4063,10 +4063,102 @@ int main(void){
 }
 ```
 
-**\*Output : base pointer**
+**_Output : base pointer_**
 
 ```
 base_pointer store derived object now
 see which member function base pointer called :
 This is message from base
 ```
+
+That's why use virtual function. Syntax of virtual function :
+
+```cpp
+virtual return_type function_name(parameter_list);
+```
+
+We can not declear virtual function as stand alone function.If class has virtual function that's class called polymorphic class. Base class virtual function will override by derived class function. Here example :
+
+**_Program : virtual function_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create base class
+class Base{
+    public :
+        virtual void Message(void){
+            cout << "Virtual : It's Base class" << endl;
+        }
+
+        void non_virtual_message(void){
+            cout << "non virtual : It's Base class" << endl;
+        }
+};
+
+class Derived:public Base{
+    public :
+    void Message(void){
+        cout << "It'Derived Class" << endl;
+    }
+
+    void non_virtual_message(void){
+            cout << "non virtual : It's derived class" << endl;
+        }
+};
+
+
+int main(void){
+    // create base
+    Base *base_pointer;
+
+    Derived derived;
+
+    base_pointer = &derived;
+
+    cout << "Derived.Message() : " << endl;
+    derived.Message();
+    cout << "Derived.non_virtual_message() : " << endl;
+    derived.non_virtual_message();
+
+    cout <<"\nbase_pinter point derived class" << endl;
+    cout << "Now base_pointer->Message() : " << endl;
+    base_pointer->Message();
+    cout << "base_pointer->non_virtual_message() : " << endl;
+    base_pointer->non_virtual_message();
+
+    return 0;
+}
+```
+
+**_Output : virtual function_**
+
+```
+Derived.Message() :
+It'Derived Class
+Derived.non_virtual_message() :
+non virtual : It's derived class
+
+base_pinter point derived class
+Now base_pointer->Message() :
+It'Derived Class
+base_pointer->non_virtual_message() :
+non virtual : It's Base class
+```
+
+## Binding
+
+A realeasion between call the function and start to execute the function code called binding. Here two type of bind in c++ :
+
+1. Early Binding or Static Binding.
+1. Late Binding or dynamic Binding.
+
+## Early Binding or Static Binding
+
+In c++ when we called normal function, overloaded function or friend and virtual function then program compiler figure out the function address compile time. That's means complate the binding work compile time. That's why it called **_early binding._**
+
+## Dynamic Binding or Late Binding
+
+compiler can not figure out the function address when called base class virtual function by pointer object. Because pointer object point which one it can not figure out compile time. That why this term work program run time. Virtual function bind starting start program run time.It's called **_Late binding or Dynamic Binding_**
