@@ -4162,3 +4162,45 @@ In c++ when we called normal function, overloaded function or friend and virtual
 ## Dynamic Binding or Late Binding
 
 compiler can not figure out the function address when called base class virtual function by pointer object. Because pointer object point which one it can not figure out compile time. That why this term work program run time. Virtual function bind starting start program run time.It's called **_Late binding or Dynamic Binding_**
+
+## virtual_function_constructor_and_destructor
+
+We can not declear constructor but we can declear virtual destructor. If we declear a destructor as a virtual then first called derived class destructor then called base destructor function called.
+
+**_Program : virtual destructor_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create class
+class Base{
+    public :
+    virtual ~Base(void){
+            cout << "This is base destructor. virtual." << endl;
+        }
+};
+
+class Derived:public Base{
+    public :
+        ~Derived(void){
+            cout << "This is derived destructor." << endl;
+        }
+};
+
+int main(void){
+    Base *base_pointer;
+    base_pointer = new Derived;
+    // finish the function and see which destructo first called
+    delete base_pointer;
+    return 0;
+}
+```
+
+**_Output : virtual destructor_**
+
+```
+This is derived destructor.
+This is base destructor. virtual.
+```
