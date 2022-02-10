@@ -53,6 +53,7 @@ This is simple documentation on c++ programming language for me. I create this d
   - [overload bracket operator](#overload_braket_operator)
 - [Virtual Function](#Virtual_Function)
   - [Override](#Override)
+  - [pure virtual function and destructor](#pure_virtual_function_and_destructor)
 
 # Basic
 
@@ -4203,4 +4204,73 @@ int main(void){
 ```
 This is derived destructor.
 This is base destructor. virtual.
+```
+
+## pure_virtual_function_and_destructor
+
+Pure virtual funciton mean inform the compiler that it is virtual function and this function defination will write in derived class not in base class. we also declear virtual destructor but in that case we must write definatin in base class.A class with pure virtual function then we can not create this class normal object but create pointer. Here example :
+
+syntax to declear pure virtual function and destructor :
+
+```cpp
+class Base{
+    public :
+        virtual return_type function_name(parameter_list) = 0;
+        virtual ~Base(void);
+};
+
+Base::~Base(void){
+    // defination here..................
+}
+```
+
+If a class with atleast one virtual function that call **_abstract_** class.
+
+**_Program : pure virtual function and destructor_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create Base class
+class Base{
+    public :
+        virtual void msg(void) = 0;
+        virtual ~Base(void) = 0;
+};
+
+Base::~Base(void){
+    cout << "this is virtual base destructor." << endl; ;
+}
+
+class Derived:public Base{
+    public :
+        void msg(void);
+        ~Derived(void){
+            cout << "This is derived destructor." << endl;
+        }
+};
+
+void Derived::msg(void){
+    cout << "This is derived msg" << endl;
+}
+
+int main(void){
+    // create base ponter and delete it
+    Base *base_pointer = new Derived;
+
+    base_pointer->msg();
+    delete base_pointer;
+
+    return 0;
+}
+```
+
+**_Output : pure virtual function and destructor_**
+
+```
+This is derived msg
+This is derived destructor.
+this is virtual base destructor.
 ```
