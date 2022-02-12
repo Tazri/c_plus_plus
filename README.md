@@ -5067,3 +5067,289 @@ Something is wrong :(
 ## uncaught_exception
 
 if a error can not caought by **_catch_** block it called **_uncaught exception_** . In that case compiler call **_terminate()_** function from standard library and **_terminate()_** function call **_abort()_** function to finish the program.
+
+# iostream
+
+In c++ useally use **_insertion(\'\<\<\'\)_** operator to input the data from use and **_extraction(\'\>\>\'\)_** operator to output the data in console. C++ has built-in class and object which use for manage data from user. This type of built-in class and object called **_iostream_** in c++. Here **_ios_** stream class hierarchy :
+
+```
+ios -> istream
+ios -> ostream
+
+istream inherited by :
+iostream
+istrstream
+istream_withassign
+ifstream
+
+ostream inherited by :
+iostream
+ofstream_withassign
+ostrstream
+
+iostream inherited by :
+fstream
+strstream
+stdiostream
+
+streambuf inherited by :
+filebuf
+strstreambuf
+stdiobuf
+```
+
+## cin
+
+cin is istream object. But it compiler defined. It can be declear in iostream, istream and ostream. In here overloaded shift(>>) opreator called extractor which is extract data from input stream. Here example :
+
+**_Program : cin_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    char name[30];
+
+    // get name from uer
+    cout << "Please enter your name : ";
+    cin >> name;
+    cout << "\nHello, "<< name <<" :)" << endl;
+    return 0;
+}
+```
+
+**_Output : cin_**
+
+```
+Please enter your name : Tazri <enter>
+
+Hello, Tazri :)
+```
+
+But here we can not store multiple word with space by cin. It just get word before the space.
+
+### getline
+
+**_getline_** use this function for get a line of string from user.It is member function of **_cin_** object. Here **_getline_** member function defination.
+
+```cpp
+istream& getline(char * pch,int nCount,char delim='\n');
+
+istream& getline(unsigned char* puch,int nCount, char delim='\n');
+
+istream& getline(signed char*psch,int nCount,char delim='\n');
+```
+
+Here **_pch_**, **_puch_**, **_psch_**, **_nCount_** and **_delim_** means :
+
+```
+pch -> point char
+puch -> point unsigned char
+psch -> point signed char
+nCount -> higsest store character number
+delim -> delimitation (where to stop input)
+```
+
+Here example :
+
+**_Program : cin getline_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+
+int main(void){
+    char name[30];
+    char message[250];
+
+    // get name from user
+    cout << "Please enter you name : ";
+    // cin.getline(array,size,delemitaion = '\n');
+    cin.getline(name,30);
+
+    cout << "Please Enter Your message : " << endl;
+    cin.getline(message,250,EOF);
+
+    cout << "Hello, " << name << ". :)" << endl;
+    cout << "Your message is : " << endl;
+    cout << message << endl;
+    return 0;
+}
+```
+
+**_Output : cin getline_**
+
+```
+Please enter you name : Tazri <enter>
+Please Enter Your message :
+My name is tazri and I am also a programmer.
+
+This is message from me.
+
+Nothing else
+.
+
+This is just a message
+...............
+.............. <ctrl + d>
+Hello, Tazri. :)
+Your message is :
+My name is tazri and I am also a programmer.
+
+This is message from me.
+
+Nothing else
+.
+
+This is just a message
+...............
+..............
+
+```
+
+### gcount
+
+This function is cin member function. **_cin_** just return a number of byte last extarct by stream cin **_getline_** . Here example :
+
+**_Program : cin gcount_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    // get name
+    char name[30];
+
+    cout << "Please Enter Name : ";
+    cin.getline(name,sizeof(name));
+    cout << "Size of " << name << " is : " << cin.gcount() << endl;
+
+    cout << "Please Enter a Name With Space : ";
+    cin.getline(name,sizeof(name));
+    cout << "Size of " << name << " is : " << cin.gcount() << endl;
+
+    return 0;
+}
+```
+
+**_Output : cin gcount_**
+
+```
+Please Enter Name : Md Tazri<enter>
+Size of Md Tazri is : 9
+Please Enter a Name With Space : Focasa<enter>
+Size of Focasa is : 7
+```
+
+### cin_get
+
+It reads an input character and stores it in a variable. It work like cin with extractor operator. But different is it include whitespace. Here prototype :
+
+```cpp
+cin.get(void) // --> return only one character
+cin.get(char &buffer,int flush_size) // --> get string from user with white space
+```
+
+**_Program : cin get_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    char mark;
+    char position;
+    char name[30];
+
+    // get name
+    cout << "Please enter the name : ";
+    cin.get(name,30);
+    cin.get(); // get the enter
+
+    // get mark
+    cout << "Please enter the mark : ";
+    mark = cin.get();
+    cin.get(); // get the enter
+
+    // get position
+    cout << "Please enter the position : ";
+    position = cin.get();
+    cin.get(); // get the enter
+
+
+
+    cout << "Hey, " << name << endl;
+    cout << "Your mark : " << mark << endl;
+    cout << "Your position : " << position << endl;
+
+    return 0;
+}
+```
+
+**_Output : cin get_**
+
+```
+Please enter the name : Md Tazri <enter>
+Please enter the mark : d <enter>
+Please enter the position : 4 <enter>
+Hey, Md Tazri
+Your mark : d
+Your position : 4
+```
+
+### cin_read
+
+This member function work like get. It read the number of character from stream. Here example :
+
+**_Program : cin read_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    // create name
+    char name[20];
+
+    cout << "Enter Your Name : ";
+    cin.read(name,10);
+    cout << endl << "Hello, " << name;
+    cout << "    How are you ? " << endl;
+
+    return 0;
+}
+```
+
+**_Ouput : cin read_**
+
+```
+Enter Your Name : 1234567891
+
+Hello, 1234567891�Y+V    How are you ? 
+```
+
+### more_input_function
+
+Here more input member function in **_cin_** object.
+
+| function name | description                                                             |
+| ------------- | ----------------------------------------------------------------------- |
+| get           | extracts characters from the stream up to, but not including delimiters |
+| getline       | extracts characters from the stream (extracts and discards) delimiters. |
+| read          | extracts data from stream                                               |
+| ignore        | extracts and discards characters                                        |
+| peek          | returns a character without extracting it from the stream               |
+| gcount        | counts the characters extracted in the last unformatted                 |
+| eatwhite      | extracts leading white space                                            |
+| putback       | puts characters back to the stream                                      |
+| sync          | synchronize the stream buffer with external source of characters        |
+| seekg         | changes the stream's get pointer                                        |
+| tellg         | gets the value of the stream's get pointer                              |
