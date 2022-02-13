@@ -5333,7 +5333,7 @@ int main(void){
 ```
 Enter Your Name : 1234567891
 
-Hello, 1234567891�Y+V    How are you ? 
+Hello, 1234567891�Y+V    How are you ?
 ```
 
 ### more_input_function
@@ -5353,3 +5353,38 @@ Here more input member function in **_cin_** object.
 | sync          | synchronize the stream buffer with external source of characters        |
 | seekg         | changes the stream's get pointer                                        |
 | tellg         | gets the value of the stream's get pointer                              |
+
+## ostream
+
+**_cout_** is **_ostream_** object. It just work to data in output device. This class overload the shift operator and here it called **_insertion(<<)_** operator. Also cout has some member function like cin. But all the member function work for output the data in output device. Here some member function of cout.
+
+**_Program : cout_**
+
+```cpp
+# include <iostream>
+
+using namespace std;
+
+int main(void){
+    cout << "Hello, World!" << endl;
+    return 0;
+}
+```
+
+**_Ouput : cout_**
+
+```
+Hello, World!
+```
+
+| function | description                                    |
+| -------- | ---------------------------------------------- |
+| put      | inserts a single byte into the stream          |
+| write    | inserts a series of bytes into the stream      |
+| flush    | flushes the buffer associated with this stream |
+| seekp    | Changes the stream's put pointer               |
+| tellp    | Gets the value of the stream's put pointer.    |
+
+## formatted_input_output
+
+In program some time need to display formatted input and ouput. Like some time output the floating point number show 2 decimal digit after point. We can
