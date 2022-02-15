@@ -5387,4 +5387,83 @@ Hello, World!
 
 ## formatted_input_output
 
-In program some time need to display formatted input and ouput. Like some time output the floating point number show 2 decimal digit after point. We can
+In program some time need to display formatted input and ouput. Like some time output the floating point number show 2 decimal digit after point. We can do it two way. Here :
+
+1. Use Manipulator
+1. Use ios class
+
+see manipulator way to formatted data :
+
+**_Program : manipulator cout_**
+
+```cpp
+#include <iostream>
+
+// using namepsace std
+using namespace std;
+
+int main(void){
+    int number = 4043;
+
+    cout << "Number : " << number << endl;
+    cout << "Number : oct << " << oct << number << endl;
+    cout << "Number : hex << " << hex << number << endl;
+    cout << "Number : dec << " << dec << number << endl;
+
+    /**
+     * in here
+     * oct
+     * hex
+     * dec
+     * is manipulator
+     *
+     */
+
+    return 0;
+}
+```
+
+**_Ouput : manipulator cout_**
+
+```
+Number : 4043
+Number : oct << 7713
+Number : hex << fcb
+Number : dec << 4043
+```
+
+In **_manipulator cout_** program : **_oct_**, **_hex_** and **_dec_** is a manipulator to see the number from another base system. This manipulator can declear in **_ios_** class and **_ostream_** inherit **_ios_** class. So we can use this by **_cout_** ostream object.
+
+Here another example :
+
+**_Program : showbase_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    int number = 19038;
+
+    // modify the mainpuletor by cout.seft member function
+    cout.setf(ios::showbase);
+
+    // see the number by different number system
+    cout << "number : " << number << endl;
+    cout << "number : hex " << hex << number << endl;
+    cout << "number : oct " << oct << number << endl;
+    cout << "number : dec " << dec << number << endl;
+
+    return 0;
+}
+```
+
+**_Output : showbase_**
+
+```
+number : 19038
+number : hex 0x4a5e
+number : oct 045136
+number : dec 19038
+```
