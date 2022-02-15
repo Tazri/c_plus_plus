@@ -5467,3 +5467,22 @@ number : hex 0x4a5e
 number : oct 045136
 number : dec 19038
 ```
+
+In here we can modify the manipulator by **_cout.seft_** member function. In arguments we pass the static value **_ios::showbase_** . It is static value of **_ios_** class. It called **_format flag_** of **_ios class_** . Here some more important flag :
+
+| flag       | descriptin                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------- |
+| skipws     | skip white space on input                                                                         |
+| left       | left align values; pad on the right with the fill character                                       |
+| right      | right align values; pad on the left with the fill character (default alignment)                   |
+| internal   | Add fill characters after any leading sign or base indication, but before the value.              |
+| dec        | format numeric values as base 10 (decimal) (defalut radix).                                       |
+| oct        | format numeric values as base 8 (octal) .                                                         |
+| hex        | format numberic values as base 16 (hexadecimal) .                                                 |
+| showpoint  | show decimal point and trailing zeros for floating-point values.                                  |
+| uppercase  | display uppercase A through F for hexadecimal values and E for scientific values.                 |
+| showpos    | show plus (+) for positive values.                                                                |
+| scientific | Display floating-pointnumbers in scientfic format.                                                |
+| fixed      | display floating-point numbers in fixed format.                                                   |
+| unitbuf    | cause ostream::osfx to flush the stream after each insertion, By default, cerr is until buffered. |
+| stdio      | cause ostream::osfx to flush stdout and stderr after each insertion.                              |
