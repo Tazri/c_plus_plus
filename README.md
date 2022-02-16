@@ -5486,3 +5486,98 @@ In here we can modify the manipulator by **_cout.seft_** member function. In arg
 | fixed      | display floating-point numbers in fixed format.                                                   |
 | unitbuf    | cause ostream::osfx to flush the stream after each insertion, By default, cerr is until buffered. |
 | stdio      | cause ostream::osfx to flush stdout and stderr after each insertion.                              |
+
+**_Program : cout setf flag_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    double number = 3034.325000;
+
+    cout << "Default number : " << number << endl;
+
+    cout.setf(ios::showpoint | ios::showpos);
+
+    cout << "after set seft to -> showpoint and showpos : " << endl;
+    cout << "number : " << number << endl;
+
+    // unseft the showpoint
+    cout.unsetf(ios::showpoint);
+    cout << "\n\nclear the showpoint by ios::showpoint" << endl;
+
+    cout.setf(ios::hex | ios::showbase);
+    cout << "set setf to -> hex and showbase : " << endl;
+    cout << "number " << hex << (int)number << endl;
+    return 0;
+}
+```
+
+**_Output : cout setf flag_**
+
+```
+Default number : 3034.32
+after set seft to -> showpoint and showpos :
+number : +3034.32
+
+
+clear the showpoint by ios::showpoint
+set setf to -> hex and showbase :
+number 0xbda
+```
+
+In c++ **_cout_** object has three member function is **_fill_**, **_width_** and **_precision_**. Here three member funciton prototype :
+
+```cpp
+char fill(char ch);
+streamsize width(streamsize w);
+streamsize precision(streamsize p);
+
+// here streamsize is enum type data.
+```
+
+In here what to do with this three member function.
+
+**_Program : cout fill_**
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    char name[10] = "Md Tazri";
+    double number = 4033.333423;
+
+    // cout fill
+    cout.fill('.');
+    cout << "Name : ";
+    cout.width(24);
+    cout << name << "\n";
+
+    cout.fill('.');
+    cout.width(24);
+    cout.setf(ios::left);
+    cout << "Number : ";
+    cout.precision(6);
+    cout.width(10);
+    cout.setf(ios::right | ios::showpoint);
+    cout << number;
+    cout.setf(ios::showbase | ios::hex);
+
+    cout << "\n" << (int) number << endl;
+
+
+    return 0;
+}
+```
+
+**_Output : cout fill_**
+
+```
+Name : ................Md Tazri
+Number : ..................4033.33
+4033
+```
