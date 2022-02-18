@@ -5581,3 +5581,47 @@ Name : ................Md Tazri
 Number : ..................4033.33
 4033
 ```
+
+### more manipulator
+
+we can inlcude **_iomanip.h_** header folder for use manipulator. Example here :
+
+**_Program : iomanip_**
+
+```cpp
+#include <iostream>
+#include <iomanip> // include iomanip header folder
+
+using namespace std;
+
+int main(void){
+    bool bool_value = true;
+
+    cout << "bool_value => " << bool_value << endl;
+    cout << "bool_value << boolalpha => " << boolalpha << bool_value << endl;
+
+    return 0;
+}
+```
+
+**_Output : iomanip_**
+
+```
+bool_value => 1
+bool_value << boolalpha => true
+```
+
+some importance manipulator and their short description.
+
+| Mainpulator | Description                     |
+| ----------- | ------------------------------- |
+| boolalpha   | see the bool value by stream    |
+| dec         | see the numeric type value      |
+| endl        | add newline character           |
+| ends        | add NULL character              |
+| fixed       | set fixed flag in output stream |
+| flush       | flush the buffer                |
+| hex         | see the hexadecimal value       |
+| internal    | set internal flag               |
+| noboolalpha | off the boolalpha flag          |
+| oct         | see the octal output            |
