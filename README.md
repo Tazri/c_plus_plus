@@ -9,67 +9,103 @@ This is simple documentation on c++ programming language for me. I create this d
 
 ## Table of Content
 
-- [Basic](#Basic)
-  - [Basic Builtin Function](#Basic-Builtin-Function)
-  - [Commenting](#Commenting)
-  - [Type Casting](#Type_Casting)
-  - [Function and C++](#Function_and_C++)
-    - [Default_Arguments](#Default_Arguments)
-    - [Function Perameter Pointer Refercence](#Function_Perameter_Pointer_Refercence)
-  - [Void Pointer](#Void_Pointer)
-  - [Structure Union and Enum](#Structure_Union_and_Enum)
-  - [References](#References)
-    - [Const References](#Const_References)
-    - [Reference as Return](#Reference_as_Return)
-- [Classes](#Classes)
-  - [Object](#Object)
-  - [Member Variable](#member_variable)
-  - [Member Function](#member_function)
-  - [Access Specfier](#access_specfier)
-    - [public](#public)
+- [C++ Programming Language](#c-programming-language)
+  - [Table of Content](#table-of-content)
+- [Basic](#basic)
+  - [Basic-Builtin-Function](#basic-builtin-function)
+    - [cout](#cout)
+    - [endl](#endl)
+  - [Commenting](#commenting)
+  - [Type_Casting](#type_casting)
+  - [Function_and_C++](#function_and_c)
+    - [Default_Arguments](#default_arguments)
+    - [Function_Perameter_Pointer_Refercence](#function_perameter_pointer_refercence)
+  - [Void_Pointer](#void_pointer)
+  - [Structure_Union_and_Enum](#structure_union_and_enum)
+  - [References](#references)
+    - [Const_References](#const_references)
+    - [Reference_as_Return](#reference_as_return)
+- [Classes](#classes)
+  - [Object](#object)
+  - [Member_variable](#member_variable)
+  - [Member Function](#member-function)
+  - [Access_Spacfier](#access_spacfier)
+    - [Pubilc](#pubilc)
     - [private](#private)
-  - [Constructor](#Constructor)
-  - [Destructor](#Destructor)
-  - [Static Member](#Static_Member)
-  - [Static Member Function](#Static_Member_function)
-  - [Friend](#Friend)
-    - [Friend Member Function](#Friend_Member_Function)
-    - [Stand Alone Function Friend](#Stand_Alone_Function)
-  - [Const Member Function](#Const_Member_Function)
-- [Object](#Object)
-  - [Copy Object](#Copy_Object)
-  - [Copy Constructor](#Copy_Constructor)
-  - [Object and Function](#Object_and_Function)
-  - [Object Array](#Object_Array)
-  - [this_keyword](#this_keyword)
-- [Dynamic Memory](#Dynamic_Memory)
-- [Inheritance](#Inheritance)
-- [Polymorphism](#Polymorphism)
-  - [function overloading](#function_overloading)
+  - [Constructor](#constructor)
+  - [Destructor](#destructor)
+  - [Static_Member](#static_member)
+  - [Static_Member_Function](#static_member_function)
+  - [Friend](#friend)
+    - [Friend_Function](#friend_function)
+    - [Stand_Alone_Function_Friend](#stand_alone_function_friend)
+  - [Const_Member_Function](#const_member_function)
+- [Object](#object-1)
+    - [Rule of decleare object;](#rule-of-decleare-object)
+    - [Accessing member variable](#accessing-member-variable)
+  - [Copy_Object](#copy_object)
+  - [Copy_Constructor](#copy_constructor)
+  - [Object_and_Function](#object_and_function)
+    - [Function inside](#function-inside)
+    - [function arguments](#function-arguments)
+  - [Call by Reference](#call-by-reference)
+    - [Return Object](#return-object)
+  - [Object_Array](#object_array)
+- [this_keyword](#this_keyword)
+- [Dynamic_Memory](#dynamic_memory)
+- [Inheritance](#inheritance)
+  - [public](#public)
+  - [private](#private-1)
+  - [protected](#protected)
+  - [Same Member](#same-member)
+  - [constructor destructor](#constructor-destructor)
+  - [Multi Base Class Inheritance](#multi-base-class-inheritance)
+  - [Virtual](#virtual)
+  - [Inheritance and Pointer](#inheritance-and-pointer)
+- [Polymorphism](#polymorphism)
+  - [function_overloading](#function_overloading)
   - [overload_constructor_and_member](#overload_constructor_and_member)
-  - [operator overloading](#operator_overloading)
-  - [operator function as friend](#operator_function_as_friend)
-  - [overload insertion operator](#overload_insertion_operator)
-  - [overload bracket operator](#overload_braket_operator)
-- [Virtual Function](#Virtual_Function)
-  - [Override](#Override)
-  - [pure virtual function and destructor](#pure_virtual_function_and_destructor)
-- [template](#template)
-  - [Function Template](#Function_Template)
-    - [Explicit Specialization](#explicit_specialization)
-    - [Multiple Generic Type](#Multiple_Generic_Type)
-    - [Overloaded function template](#overloaded_function_template)
-  - [Template Class](#template_class)
-    - [Multiple Generic Type in Class Template](#multiple_generic_type_in_class_template)
-    - [Default Class Template argument and parameter](#default_class_template_argument_and_parameter)
+  - [operator_overloading](#operator_overloading)
+  - [operator_function_as_friend](#operator_function_as_friend)
+  - [overload_insertion_operator](#overload_insertion_operator)
+  - [overload_bracket_operator](#overload_bracket_operator)
+- [Virtual_Function](#virtual_function)
+  - [Override](#override)
+  - [Binding](#binding)
+  - [Early Binding or Static Binding](#early-binding-or-static-binding)
+  - [Dynamic Binding or Late Binding](#dynamic-binding-or-late-binding)
+  - [virtual_function_constructor_and_destructor](#virtual_function_constructor_and_destructor)
+  - [pure_virtual_function_and_destructor](#pure_virtual_function_and_destructor)
+- [Template](#template)
+  - [Function_Template](#function_template)
+    - [explicit_specialization](#explicit_specialization)
+    - [Multiple_Generic_Type](#multiple_generic_type)
+    - [overloaded_function_template](#overloaded_function_template)
+  - [template_class](#template_class)
+    - [multiple_generic_type_in_class_template](#multiple_generic_type_in_class_template)
+    - [default_class_template_argument_and_parameter](#default_class_template_argument_and_parameter)
     - [typename](#typename)
-    - [Explicit Class specialization](#explicit_class_speicalization)
-- [Exception Handling](#Exception_Handling)
-  - [try block](#try_block)
-  - [catch bloack](#catch_block)
-  - [throw statement](#throw_statement)
-  - [catch all handler](#catch_all_handler)
-  - [uncaught exception](#uncaught_exception)
+    - [explicit_class_specialization](#explicit_class_specialization)
+- [Exception_Handling](#exception_handling)
+  - [try_Block](#try_block)
+  - [catch_block](#catch_block)
+  - [throw_statement](#throw_statement)
+  - [catch_all_handler](#catch_all_handler)
+  - [uncaught_exception](#uncaught_exception)
+- [iostream](#iostream)
+  - [cin](#cin)
+    - [getline](#getline)
+    - [gcount](#gcount)
+    - [cin_get](#cin_get)
+    - [cin_read](#cin_read)
+    - [more_input_function](#more_input_function)
+  - [ostream](#ostream)
+  - [formatted_input_output](#formatted_input_output)
+    - [more manipulator](#more-manipulator)
+- [file_i_o](#file_i_o)
+  - [ofstream fout.open](#ofstream-foutopen)
+  - [read_file](#read_file)
+  - [file_read_and_write_together](#file_read_and_write_together)
 
 # Basic
 
@@ -5625,3 +5661,202 @@ some importance manipulator and their short description.
 | internal    | set internal flag               |
 | noboolalpha | off the boolalpha flag          |
 | oct         | see the octal output            |
+
+# file_i_o
+***ofstream*** use write file and ***ifstream*** use for read file. But must include.***fstream*** header file. also ***fstream*** is base class of ***ofstream*** and ***ifstream***.
+***ofstream *** object to write something inside the file. Here example : 
+
+***Program : ofstream***
+```cpp
+#include <iostream>
+#include<fstream> // fstream for using ofstream
+
+using namespace std;
+
+int main(void){
+    // first create the file and write it in
+    // ofstream file();
+
+    /**
+     * must include the fstream for use ofstream
+     * first open the file. two way to open the file
+     * first : 
+     * file.open("file path as string")
+     * 
+     * secound, when it create
+     * ofstream file("file path as string")
+     * 
+     * if it fuilare to open path then it return also 
+     * 
+     */
+
+    // create file object
+    // ofstream file("./file/new.txt"); first way to open file 
+    char file_path[20] = "./file/new.txt";
+    ofstream file;
+    file.open(file_path); // another way to open file
+
+    if(!file){ // it return false if file is can not open successfully
+        cout << "Can not open file from " << file_path << endl;
+        return 0;
+    }
+
+    char paragraph[400];
+    cout << "Please Write something inside the file. When finish the writing then enter ctl + d" << endl;
+    cin.getline(paragraph,sizeof(paragraph),EOF); // get the paragraph from user
+
+    file << paragraph << endl; // write the inside file
+
+    file.close(); // close the file.
+
+    return 0;
+}
+```
+
+***Output : ofstream***
+```
+Please Write something inside the file. When finish the writing then enter ctl + d
+Ok this is my first paragraph write inside the file by this program<enter>
+here I write some bla bla <enter>
+---------------------------------<enter>
+nothing to mean it is<enter>
+It just a bla bla<enter>
+-----------------<enter>
+----------------<enter>
+---------------<enter>
+-------------- <enter>
+-------------<enter>
+------------<enter>
+-----------<enter>
+----------<enter>
+---------<enter>
+--------<enter>
+-------<enter>
+------<enter>
+-----<enter>
+----<enter>
+---<enter>
+--<enter>
+-<enter>
+>>> Here it is finish <<< < ctrl + d>
+``` 
+
+***Inside the file : ./file/nex.txt***
+```
+Ok this is my first paragraph write inside the file by this program
+here I write some bla bla 
+---------------------------------
+nothing to mean it is
+It just a bla bla
+-----------------
+----------------
+---------------
+--------------
+-------------
+------------
+-----------
+----------
+---------
+--------
+-------
+------
+-----
+----
+---
+--
+-
+>>> Here it is finish <<<
+
+```
+
+## ofstream fout.open 
+***ofstream*** ***open*** member function also overloaded. Which can compiler see like this : 
+```cpp
+ofstream fout.open("file/path/as/string",ios::out,file_buf::openport);
+
+// in here secound argument is file mode. 
+```
+
+Here some file mode argument for ***open*** member function.
+
+| File mode | Description                                                                                      |
+|------------|---------------------------------------------------------------------- |
+| ios::out    | it open file if exist, if not exist then it create file and writing something if it write like ios::out|ios:nocreate then it can not create new file |
+| ios::in      | it open the file for reading not writing   |
+| ios::app   | write something in the end of file. we can change position by ***ios::seekp()*** |
+| ios::nocreate | open the file if exist otherwise throw error |
+| ios::noreplace | create new file if file is dose not exist | 
+| ios::binary      |  open the binary file otherwise open the text file |
+
+## read_file
+use ***fstream*** for read the file. Here example : 
+
+***Program : fstream***
+```cpp
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main(void){
+    // first open the file
+    char file_path_name[30] = "./file/new.txt";
+    // ifstream file(file_path_name);
+    ifstream file;
+    file.open(file_path_name); // another way to open file for read
+
+    if(!file){ // if file can not open then it return false
+        cout << "Sorry file can not open. Something is wrong...................." << endl;
+        return 0;
+    }
+
+    cout << "Here inside the file is : " << endl;
+    while(!file.eof()){ // file.eof() return false when can not find the eof which is exist end of file.
+        cout <<  char(file.get()); // file.get() get the character of file one by one. start with first character. 
+    }
+    cout << "\n>>> Finish Here <<<" << endl;
+    return 0;
+}
+```
+
+***Output : ifstream***
+```
+Here inside the file is : 
+Ok this is my first paragraph write inside the file by this program
+here I write some bla bla 
+---------------------------------
+nothing to mean it is
+It just a bla bla
+-----------------
+----------------
+---------------
+--------------
+-------------
+------------
+-----------
+----------
+---------
+--------
+-------
+------
+-----
+----
+---
+--
+-
+>>> Here it is finish <<<
+�
+>>> Finish Here <<<
+```
+
+## file_read_and_write_together
+We can open the file for read and write at a time. In that case create ***fstream*** object instead of ***ifstream*** and ***ofstream***. Here syntax :
+
+```cpp
+fstream file;
+file.open("path/to/open/file",ios::in||ios::out); // ios::in for input and ios::out for output
+
+// another wya is
+fstream file("path/to/open/file",ios::in||ios::out); // ios::in for input and ios::out for output
+```
+
