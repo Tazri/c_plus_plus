@@ -9,7 +9,7 @@ Here Table of Content :
 
 - [Basic](./00.basic/00.basic.md)
 - [Intro](./01.intro/01.intro.md)
-- [Object](./02.object/02.object.md)
+- [Object](./02.object/object.md)
 - [Dynamic memory](./03.dynamic_memory/03.dynamic_memory.md)
 - [Inheritance](./04.inheritance/04.inheritance.md)
 - [Polymorphism](./05.polymorphism/05.polymorphism.md)
