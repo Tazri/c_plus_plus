@@ -10,5 +10,5 @@ When I started to document on c++, I use "object oriented programming in c++" bo
 \> [The old Document](./Old/README.md)
 --------
 
-\> [The new Document]()
+\> [The new Document](./New/README.md)
 ----------------
