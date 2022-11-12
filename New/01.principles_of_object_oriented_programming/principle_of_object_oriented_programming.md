@@ -11,6 +11,10 @@ The basic concept of object oriented programm is :
 6. Dynamic Binding
 7. Message Passing
 
+## Some important History of OOP 
+- First introduce the Object Oriented Programming by **Alan Kay** circa(প্রায়) 1966 ot 1967.
+- Alan Kay said : "As complexity increases, architecture dominates the basic material."
+
 ## Object 
 Object are the basic run-time entities in an object-oriented system. They represent data, attribute or properties of something. 
 
