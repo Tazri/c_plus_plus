@@ -7,8 +7,8 @@ When I started to document on c++, I use "object oriented programming in c++" bo
 
 ![object oriented programing](./asset/banner/cpp-object-oriented-programming.png)
 
-\> [The old Document](./Old/README.md)
+\> [Note from "Mohammud Kamrujjaman Niton" book](./note_1/README.md)
 --------
 
-\> [The new Document](./New/README.md)
+\> [Note from "E Balagurusamy" book](./note_2/README.md)
 ----------------
