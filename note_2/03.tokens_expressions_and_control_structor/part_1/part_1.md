@@ -7,6 +7,7 @@ Here documented about :
 - **[Basic Data Types](#basic-data-types)**
 - **[void](#void)**
 - **[Structure and Union](#structure-and-union)**
+- **[Enumerated Data Type](#enumerated-data-type)**
 
 ## Tokens
 The smallest indiviual units in a program are known as tokens. In C++ has following tokens : 
@@ -196,5 +197,104 @@ union_name name; // work only in C++
 
 <hr />
 
+> ⚪ classes important type data type in c++ but it not cover this chapter.
+
+<hr />
+
+## Enumerated Data Type
+
+The `enum` keyword automatically enumerates a list of words by assigning them values 0,1,2 and so on like ANSI C. But In c++ something is different. It possible to **create enum type variable without using `enum` keyword in c++**. Here syntax : 
+
+```cpp
+// the value will be assign automatically follwing this serail
+// this serial    1      2     3      4 so on
+enum enum_name{name1, name2, name3,...};
+
+// enum with custom value
+enum enum_name{name1=value1,name2=value2,name3=value3};
+
+// enum only store int type data
+// if determine the value of only one property of enum then left of enum value 
+// will assigin increamentin from which are determined Here simple example :  
+enum enum{name1=value1,name2,name3=vlaue3,name4};
+
+// name2 = value1 + 1
+// name4 = value3 + 1
+// enum allow duplicate value.
+
+```
+
+creating enum object in c++ like in c. But difference is dose not necessary to use `enum` keyword.
+
+```cpp
+enum enum_name variable_name = enum_value;
+
+enum_name variable_name = enum_value; // dose not work in c
+```
+
+Another difference is that we can not assign int type value in enum type variable without casting in c++.
+```cpp
+enum enum_name a = enum_value; // error in c++
+enum enum_name a = (enum_name) enum_value; // casting is necessary in c++
+```
+
+c++ allow to create anonymous enum. Which has no name. Example : 
+```cpp
+enum {ON=1,OFF=0};
+```
+
+A big example of Enum :
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// create enum
+enum color {red,green,blue,black};
+
+// create enum with integer value explacitly
+enum letter{a,b,c,d=1,e,f};
+
+// anonymous enum
+enum {on=1,off=0};
+
+int main(void){
+    // creating
+    enum letter name_start = e;
+
+    color my_book = blue; // did not necessary to use enum keyword in c++
+    
+    int is_down = off;
+
+    // error in c++, dose not store in type data without casting to enum type variable
+    // color mouse_color = 3;  
+
+    // castin is necessary
+    color mouse_color = (color) 30; 
+
+    cout << "name_start : " << name_start << endl; // name_start : 2
+    cout << "my_book : " << my_book << endl; // my_book : 2
+    cout << "is_down : " << is_down << endl; // is_down : 0
+    cout << "mouse_color : " << mouse_color << endl; // mouse_color : 30
+
+    return 0;
+}
+
+/*
+Ouptut : 
+name_start : 2
+my_book : 2
+is_down : 0
+mouse_color : 30
+*/
+```
+
+<hr />
+
 [< Index](./../token_expressions_and_control_structors.md) | [README](./../../README.md) | [Part 2 >](./../part_2/part_2.md)
 ------------------------------------
+<br />
+<br />
+
+[OR Go README Of Note 2 >](./../../README.md)
+-------------------------------------
